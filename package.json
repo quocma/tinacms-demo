@@ -11,6 +11,7 @@
     "start": "tinacms server:start -c \"next start\""
   },
   "dependencies": {
+    "@tinacms/auth": "^0.50.2",
     "@tinacms/cli": "^0.60.21",
     "dotenv": "^8.2.0",
     "framer-motion": "^3.3.0-beta.22",
@@ -19,6 +20,7 @@
     "next": "^10.0.6",
     "next-compose-plugins": "^2.2.1",
     "next-optimized-images": "^2.6.2",
+    "next-tinacms-cloudinary": "^3.5.25",
     "polished": "^4.1.0",
     "rc-drawer": "^4.2.2",
     "react": "^17.0.1",

@@ -106,6 +106,11 @@ console.log(apiURL);
 export const tinaConfig = defineConfig({
   apiURL,
   schema,
+  mediaStore: async () => {
+    const pack = await import('next-tinacms-cloudinary');
+    console.log(pack)
+    return pack.TinaCloudCloudinaryMediaStore;
+  },
   cmsCallback: (cms) => {
     //  add your CMS callback code here (if you want)
 
@@ -138,7 +143,4 @@ export const tinaConfig = defineConfig({
 
     return cms;
   },
-  client: {
-    
-  }
 });
