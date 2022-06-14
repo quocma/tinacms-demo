@@ -1,0 +1,16 @@
+fragment PageParts on Page {
+  blocks {
+    __typename
+    ... on PageBlocksBanner {
+      headline
+      text
+      image
+      cta
+    }
+  }
+}
+
+fragment PostsParts on Posts {
+  title
+  body
+}
