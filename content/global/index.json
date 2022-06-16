@@ -36,10 +36,10 @@
   },
   "theme": {
     "colors": {
-      "primary": "#0D4A90",
+      "primary": "#F325CD",
       "secondary": "#EF9E48",
       "accent": "#609",
-      "muted": "#7B8188",
+      "muted": "#9B9B9B",
       "dark": "#10132D",
       "link": "#4F96FF",
       "text": "#343D48",
