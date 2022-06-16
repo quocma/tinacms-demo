@@ -1,6 +1,6 @@
 ---
 blocks:
-  - headline: Medical banner headlineasdfasdf
+  - headline: Medical banner headline
     text: |
       description adsfasdfasd
     cta: Make an appointment
