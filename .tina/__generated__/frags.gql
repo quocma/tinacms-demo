@@ -27,30 +27,62 @@ fragment PageParts on Page {
 fragment GlobalParts on Global {
   header {
     __typename
-    color
+    background
     nav {
       __typename
       href
       label
     }
+    actions {
+      __typename
+      label
+      type
+      link
+    }
   }
   footer {
     __typename
-    color
-    social {
+    background
+    blocks {
       __typename
-      facebook
-      twitter
-      instagram
-      github
+      ... on GlobalFooterBlocksLogoBlock {
+        Image
+      }
+      ... on GlobalFooterBlocksNormalblock {
+        title
+        links {
+          __typename
+          ... on GlobalFooterBlocksNormalblockLinksNormalLink {
+            label
+            href
+          }
+          ... on GlobalFooterBlocksNormalblockLinksIconLink {
+            icon
+            label
+            href
+          }
+        }
+      }
     }
   }
   theme {
     __typename
-    color
-    font
-    icon
-    darkMode
+    colors {
+      __typename
+      primary
+      secondary
+      accent
+      muted
+      dark
+      link
+      text
+      textSecondary
+      heading
+      headingSecondary
+      background
+      backgroundSecondary
+    }
+    modes
   }
 }
 

@@ -8,7 +8,7 @@ import HappyCustomer from './happy-customer';
 import Blog from './blog';
 import SubscribeUs from './subscribe-us';
 
-const SectionsRenderer = ({ blocks, _values, values }) => {
+const SectionsRenderer = ({ blocks }) => {
   
   if(!blocks?.length) {
     return null;

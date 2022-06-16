@@ -10,7 +10,7 @@ import Logo from 'components/logo';
 import menuItems from './header.data';
 import close from 'assets/images/icons/close.png';
 
-const DrawerNav = () => {
+const DrawerNav = ({data, parentField}) => {
   const { state, dispatch } = useContext(DrawerContext);
 
   // Toggle drawer
@@ -41,22 +41,29 @@ const DrawerNav = () => {
       closeBtnStyle={styles.close}
     >
       <Box sx={styles.wrapper}>
-        <Logo sx={styles.logo} />
+        <div data-tinaField={`${parentField}.logo`}>
+          <Logo sx={styles.logo} />
+        </div>
+
         <Box as="ul" sx={styles.navbar}>
-          {menuItems.map(({ path, label }, i) => (
-            <Box as="li" key={i}>
-              <Link
-                activeClass="active"
-                to={path}
-                spy={true}
-                smooth={true}
-                offset={-70}
-                duration={500}
-              >
-                {label}
-              </Link>
+          {data.nav && 
+            <Box as="ul" sx={styles.navList}>
+              {data.nav?.map(({ href, label, __typename }, i) => (
+                <Box as="li" key={__typename + i} data-tineField={`${parentField}.nav.${i}`}>
+                  <Link
+                    activeClass="active"
+                    to={href}
+                    spy={true}
+                    smooth={true}
+                    offset={-70}
+                    duration={500}
+                  >
+                    {label}
+                  </Link>
+                </Box>
+              ))}
             </Box>
-          ))}
+          }
         </Box>
       </Box>
     </Drawer>

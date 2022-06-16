@@ -37,14 +37,16 @@ const schema = defineSchema({
           label: "Header",
           name: "header",
           fields: [
+            // color field
             {
               type: "string",
-              label: "Color",
-              name: "color",
-              options: [
-                { label: "Default", value: "default" },
-                { label: "Primary", value: "primary" },
-              ],
+              name: 'background',
+              component: 'color',
+              label: 'Background Color',
+              description: 'Edit the header background color here',
+              colorFormat: 'hex',
+              colors: ['#EC4815', '#241748', '#B4F4E0', '#E6FAF8'],
+              widget: 'sketch',
             },
             {
               type: "object",
@@ -73,6 +75,40 @@ const schema = defineSchema({
                 },
               ],
             },
+            {
+              name: "actions",
+              label: "Actions",
+              type: "object",
+              list: true,
+              ui: {
+                defaultItem: {
+                  label: 'Button Label',
+                  type: 'button',
+                  link: '/'
+                }
+              },
+              fields: [
+                {
+                  name: "label",
+                  type: "string",
+                  label: "Label"
+                },
+                {
+                  name: "type",
+                  type: "string",
+                  label: "Label",
+                  options: [
+                    { label: "Button", value: "button" },
+                    { label: "Link", value: "link" },
+                  ]
+                },
+                {
+                  label: "Link",
+                  name: "link",
+                  type: "string",
+                },
+              ]
+            }
           ],
         },
         {
@@ -80,41 +116,107 @@ const schema = defineSchema({
           label: "Footer",
           name: "footer",
           fields: [
+            // color field
             {
               type: "string",
-              label: "Color",
-              name: "color",
-              options: [
-                { label: "Default", value: "default" },
-                { label: "Primary", value: "primary" },
-              ],
+              name: 'background',
+              component: 'color',
+              label: 'Background Color',
+              description: 'Edit the header background color here',
+              colorFormat: 'hex',
+              colors: ['#EC4815', '#241748', '#B4F4E0', '#E6FAF8'],
+              widget: 'sketch',
             },
             {
-              type: "object",
-              label: "Social Links",
-              name: "social",
-              fields: [
+              name: 'blocks',
+              type: 'object',
+              label: 'Blocks',
+              list: true,
+              templates: [
                 {
-                  type: "string",
-                  label: "Facebook",
-                  name: "facebook",
+                  name: "logoBlock",
+                  label: 'Footer Logo Block',
+                  fields: [
+                    {
+                      type: 'string',
+                      name: "Image",
+                      label: 'Image',
+                      component: 'image',
+                      // Generate the frontmatter value based on the filename
+                      parse: media => `/static/${media.filename}`,
+                
+                      // Decide the file upload directory for the post
+                      uploadDir: () => {return '/public/static/'},
+                
+                      // Generate the src attribute for the preview image.
+                      previewSrc: fullSrc => fullSrc.replace('/public', ''),
+                    }
+                  ]
                 },
                 {
-                  type: "string",
-                  label: "Twitter",
-                  name: "twitter",
-                },
-                {
-                  type: "string",
-                  label: "Instagram",
-                  name: "instagram",
-                },
-                {
-                  type: "string",
-                  label: "Github",
-                  name: "github",
-                },
-              ],
+                  name: "normalblock",
+                  label: 'normalBlock',
+                  fields: [
+                    {
+                      name: 'title',
+                      label: 'Block title',
+                      type: 'string',
+                    },
+                    {
+                      name: 'links',
+                      label: 'Links',
+                      type: 'object',
+                      list: true,
+                      templates: [
+                        {
+                          name: 'normalLink',
+                          label: 'Normal Link',
+                          fields: [
+                            {
+                              name: 'label',
+                              label: 'Label',
+                              type: 'string',
+                            },
+                            {
+                              name: 'href',
+                              label: 'Href',
+                              type: 'string',
+                            },
+                          ]
+                        },
+                        {
+                          name: 'iconLink',
+                          label: 'Icon Link',
+                          fields: [
+                            {
+                              type: 'string',
+                              name: 'icon',
+                              label: 'Icon',
+                              component: 'image',
+                              // Generate the frontmatter value based on the filename
+                              parse: media => `/static/${media.filename}`,
+                              // Decide the file upload directory for the post
+                              uploadDir: () => '/public/static/',
+                              // Generate the src attribute for the preview image.
+                              previewSrc: fullSrc => fullSrc.replace('/public', ''),
+                            },
+                            {
+                              name: 'label',
+                              label: 'Label',
+                              type: 'string',
+                            },
+                            {
+                              name: 'href',
+                              label: 'Href',
+                              type: 'string',
+                            },
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
             },
           ],
         },
@@ -124,97 +226,102 @@ const schema = defineSchema({
           name: "theme",
           fields: [
             {
-              type: "string",
-              label: "Primary Color",
-              name: "color",
-              options: [
+              name: 'colors',
+              label: 'Colors',
+              type: 'object',
+              fields: [
+                // color field
                 {
-                  label: "Blue",
-                  value: "blue",
+                  type: "string",
+                  name: 'primary',
+                  component: 'color',
+                  label: 'Primay Color',
+                  colorFormat: 'hex',
                 },
                 {
-                  label: "Teal",
-                  value: "teal",
+                  type: "string",
+                  name: 'secondary',
+                  component: 'color',
+                  label: 'Secondary Color',
+                  colorFormat: 'hex',
                 },
                 {
-                  label: "Green",
-                  value: "green",
+                  type: "string",
+                  name: 'accent',
+                  component: 'color',
+                  label: 'Accent Color',
+                  colorFormat: 'hex',
                 },
                 {
-                  label: "Red",
-                  value: "red",
+                  type: "string",
+                  name: 'muted',
+                  component: 'color',
+                  label: 'Muted Color',
+                  colorFormat: 'hex',
                 },
                 {
-                  label: "Pink",
-                  value: "pink",
+                  type: "string",
+                  name: 'dark',
+                  component: 'color',
+                  label: 'Dark Color',
+                  colorFormat: 'hex',
                 },
                 {
-                  label: "Purple",
-                  value: "purple",
+                  type: "string",
+                  name: 'link',
+                  component: 'color',
+                  label: 'Link Color',
+                  colorFormat: 'hex',
                 },
                 {
-                  label: "Orange",
-                  value: "orange",
+                  type: "string",
+                  name: 'text',
+                  component: 'color',
+                  label: 'Text Color',
+                  colorFormat: 'hex',
                 },
                 {
-                  label: "Yellow",
-                  value: "yellow",
+                  type: "string",
+                  name: 'textSecondary',
+                  component: 'color',
+                  label: 'Text Secondary Color',
+                  colorFormat: 'hex',
                 },
-              ],
+                {
+                  type: "string",
+                  name: 'heading',
+                  component: 'color',
+                  label: 'Heading Color',
+                  colorFormat: 'hex',
+                },
+                {
+                  type: "string",
+                  name: 'headingSecondary',
+                  component: 'color',
+                  label: 'Heading Secondary Color',
+                  colorFormat: 'hex',
+                },
+                {
+                  type: "string",
+                  name: 'background',
+                  component: 'color',
+                  label: 'Background Color',
+                  colorFormat: 'hex',
+                },
+                {
+                  type: "string",
+                  name: 'backgroundSecondary',
+                  component: 'color',
+                  label: 'Background Secondary Color',
+                  colorFormat: 'hex',
+                },
+              ]
             },
             {
-              type: "string",
-              name: "font",
-              label: "Font Family",
-              options: [
-                {
-                  label: "System Sans",
-                  value: "sans",
-                },
-                {
-                  label: "Nunito",
-                  value: "nunito",
-                },
-                {
-                  label: "Lato",
-                  value: "lato",
-                },
-              ],
-            },
-            {
-              type: "string",
-              name: "icon",
-              label: "Icon Set",
-              options: [
-                {
-                  label: "Boxicons",
-                  value: "boxicon",
-                },
-                {
-                  label: "Heroicons",
-                  value: "heroicon",
-                },
-              ],
-            },
-            {
-              type: "string",
-              name: "darkMode",
-              label: "Dark Mode",
-              options: [
-                {
-                  label: "System",
-                  value: "system",
-                },
-                {
-                  label: "Light",
-                  value: "light",
-                },
-                {
-                  label: "Dark",
-                  value: "dark",
-                },
-              ],
-            },
+              name: 'modes',
+              label: 'Theme Modes',
+              type: "string"
+            }
           ],
         },
       ],

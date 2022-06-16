@@ -5,10 +5,19 @@ import React from 'react';
 import Header from './header/header';
 import Footer from './footer/footer';
 
-export default function Layout({ children }) {
+export default function Layout({ children, data }) {
+
+  if(!data) {
+    return null;
+  }
+
   return (
     <React.Fragment>
-      <Header />
+      {data.header && 
+        <div data-tinaField='header'>
+          <Header data={data.header} parentField='header' />
+        </div>
+      }
       <main
         sx={{
           variant: 'layout.main',
@@ -16,7 +25,11 @@ export default function Layout({ children }) {
       >
         {children}
       </main>
-      <Footer />
+      { data.footer &&
+        <div data-tinafield={`footer`}>
+          <Footer data={data.footer} />
+        </div>
+      }
     </React.Fragment>
   );
 }

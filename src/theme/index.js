@@ -2,7 +2,18 @@ import global from '../../content/global';
 
 export default {
   // example colors with dark mode
-  colors: global.theme.colors,
+  "colors": {
+    ...global.theme.colors,
+    "modes": {
+      "dark": {
+        "text": "#fff",
+        "background": "#000",
+        "primary": "#0cf",
+        "secondary": "#09c",
+        "muted": "#111"
+      }
+    }
+  },
   fonts: {
     body: 'DM Sans',
     // body:

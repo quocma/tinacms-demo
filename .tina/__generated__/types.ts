@@ -238,32 +238,74 @@ export type GlobalHeaderNav = {
   label?: Maybe<Scalars['String']>;
 };
 
-export type GlobalHeader = {
-  __typename?: 'GlobalHeader';
-  color?: Maybe<Scalars['String']>;
-  nav?: Maybe<Array<Maybe<GlobalHeaderNav>>>;
+export type GlobalHeaderActions = {
+  __typename?: 'GlobalHeaderActions';
+  label?: Maybe<Scalars['String']>;
+  type?: Maybe<Scalars['String']>;
+  link?: Maybe<Scalars['String']>;
 };
 
-export type GlobalFooterSocial = {
-  __typename?: 'GlobalFooterSocial';
-  facebook?: Maybe<Scalars['String']>;
-  twitter?: Maybe<Scalars['String']>;
-  instagram?: Maybe<Scalars['String']>;
-  github?: Maybe<Scalars['String']>;
+export type GlobalHeader = {
+  __typename?: 'GlobalHeader';
+  background?: Maybe<Scalars['String']>;
+  nav?: Maybe<Array<Maybe<GlobalHeaderNav>>>;
+  actions?: Maybe<Array<Maybe<GlobalHeaderActions>>>;
 };
+
+export type GlobalFooterBlocksLogoBlock = {
+  __typename?: 'GlobalFooterBlocksLogoBlock';
+  Image?: Maybe<Scalars['String']>;
+};
+
+export type GlobalFooterBlocksNormalblockLinksNormalLink = {
+  __typename?: 'GlobalFooterBlocksNormalblockLinksNormalLink';
+  label?: Maybe<Scalars['String']>;
+  href?: Maybe<Scalars['String']>;
+};
+
+export type GlobalFooterBlocksNormalblockLinksIconLink = {
+  __typename?: 'GlobalFooterBlocksNormalblockLinksIconLink';
+  icon?: Maybe<Scalars['String']>;
+  label?: Maybe<Scalars['String']>;
+  href?: Maybe<Scalars['String']>;
+};
+
+export type GlobalFooterBlocksNormalblockLinks = GlobalFooterBlocksNormalblockLinksNormalLink | GlobalFooterBlocksNormalblockLinksIconLink;
+
+export type GlobalFooterBlocksNormalblock = {
+  __typename?: 'GlobalFooterBlocksNormalblock';
+  title?: Maybe<Scalars['String']>;
+  links?: Maybe<Array<Maybe<GlobalFooterBlocksNormalblockLinks>>>;
+};
+
+export type GlobalFooterBlocks = GlobalFooterBlocksLogoBlock | GlobalFooterBlocksNormalblock;
 
 export type GlobalFooter = {
   __typename?: 'GlobalFooter';
-  color?: Maybe<Scalars['String']>;
-  social?: Maybe<GlobalFooterSocial>;
+  background?: Maybe<Scalars['String']>;
+  blocks?: Maybe<Array<Maybe<GlobalFooterBlocks>>>;
+};
+
+export type GlobalThemeColors = {
+  __typename?: 'GlobalThemeColors';
+  primary?: Maybe<Scalars['String']>;
+  secondary?: Maybe<Scalars['String']>;
+  accent?: Maybe<Scalars['String']>;
+  muted?: Maybe<Scalars['String']>;
+  dark?: Maybe<Scalars['String']>;
+  link?: Maybe<Scalars['String']>;
+  text?: Maybe<Scalars['String']>;
+  textSecondary?: Maybe<Scalars['String']>;
+  heading?: Maybe<Scalars['String']>;
+  headingSecondary?: Maybe<Scalars['String']>;
+  background?: Maybe<Scalars['String']>;
+  backgroundSecondary?: Maybe<Scalars['String']>;
 };
 
 export type GlobalTheme = {
   __typename?: 'GlobalTheme';
-  color?: Maybe<Scalars['String']>;
-  font?: Maybe<Scalars['String']>;
-  icon?: Maybe<Scalars['String']>;
-  darkMode?: Maybe<Scalars['String']>;
+  colors?: Maybe<GlobalThemeColors>;
+  modes?: Maybe<Scalars['String']>;
 };
 
 export type Global = Node & Document & {
@@ -432,28 +474,71 @@ export type GlobalHeaderNavMutation = {
   label?: InputMaybe<Scalars['String']>;
 };
 
-export type GlobalHeaderMutation = {
-  color?: InputMaybe<Scalars['String']>;
-  nav?: InputMaybe<Array<InputMaybe<GlobalHeaderNavMutation>>>;
+export type GlobalHeaderActionsMutation = {
+  label?: InputMaybe<Scalars['String']>;
+  type?: InputMaybe<Scalars['String']>;
+  link?: InputMaybe<Scalars['String']>;
 };
 
-export type GlobalFooterSocialMutation = {
-  facebook?: InputMaybe<Scalars['String']>;
-  twitter?: InputMaybe<Scalars['String']>;
-  instagram?: InputMaybe<Scalars['String']>;
-  github?: InputMaybe<Scalars['String']>;
+export type GlobalHeaderMutation = {
+  background?: InputMaybe<Scalars['String']>;
+  nav?: InputMaybe<Array<InputMaybe<GlobalHeaderNavMutation>>>;
+  actions?: InputMaybe<Array<InputMaybe<GlobalHeaderActionsMutation>>>;
+};
+
+export type GlobalFooterBlocksLogoBlockMutation = {
+  Image?: InputMaybe<Scalars['String']>;
+};
+
+export type GlobalFooterBlocksNormalblockLinksNormalLinkMutation = {
+  label?: InputMaybe<Scalars['String']>;
+  href?: InputMaybe<Scalars['String']>;
+};
+
+export type GlobalFooterBlocksNormalblockLinksIconLinkMutation = {
+  icon?: InputMaybe<Scalars['String']>;
+  label?: InputMaybe<Scalars['String']>;
+  href?: InputMaybe<Scalars['String']>;
+};
+
+export type GlobalFooterBlocksNormalblockLinksMutation = {
+  normalLink?: InputMaybe<GlobalFooterBlocksNormalblockLinksNormalLinkMutation>;
+  iconLink?: InputMaybe<GlobalFooterBlocksNormalblockLinksIconLinkMutation>;
+};
+
+export type GlobalFooterBlocksNormalblockMutation = {
+  title?: InputMaybe<Scalars['String']>;
+  links?: InputMaybe<Array<InputMaybe<GlobalFooterBlocksNormalblockLinksMutation>>>;
+};
+
+export type GlobalFooterBlocksMutation = {
+  logoBlock?: InputMaybe<GlobalFooterBlocksLogoBlockMutation>;
+  normalblock?: InputMaybe<GlobalFooterBlocksNormalblockMutation>;
 };
 
 export type GlobalFooterMutation = {
-  color?: InputMaybe<Scalars['String']>;
-  social?: InputMaybe<GlobalFooterSocialMutation>;
+  background?: InputMaybe<Scalars['String']>;
+  blocks?: InputMaybe<Array<InputMaybe<GlobalFooterBlocksMutation>>>;
+};
+
+export type GlobalThemeColorsMutation = {
+  primary?: InputMaybe<Scalars['String']>;
+  secondary?: InputMaybe<Scalars['String']>;
+  accent?: InputMaybe<Scalars['String']>;
+  muted?: InputMaybe<Scalars['String']>;
+  dark?: InputMaybe<Scalars['String']>;
+  link?: InputMaybe<Scalars['String']>;
+  text?: InputMaybe<Scalars['String']>;
+  textSecondary?: InputMaybe<Scalars['String']>;
+  heading?: InputMaybe<Scalars['String']>;
+  headingSecondary?: InputMaybe<Scalars['String']>;
+  background?: InputMaybe<Scalars['String']>;
+  backgroundSecondary?: InputMaybe<Scalars['String']>;
 };
 
 export type GlobalThemeMutation = {
-  color?: InputMaybe<Scalars['String']>;
-  font?: InputMaybe<Scalars['String']>;
-  icon?: InputMaybe<Scalars['String']>;
-  darkMode?: InputMaybe<Scalars['String']>;
+  colors?: InputMaybe<GlobalThemeColorsMutation>;
+  modes?: InputMaybe<Scalars['String']>;
 };
 
 export type GlobalMutation = {
@@ -469,7 +554,7 @@ export type PostsMutation = {
 
 export type PagePartsFragment = { __typename?: 'Page', blocks?: Array<{ __typename: 'PageBlocksBanner', headline?: string | null, text?: any | null, cta?: string | null, image?: string | null } | { __typename: 'PageBlocksServices', title?: string | null, description?: any | null, features?: Array<{ __typename: 'PageBlocksServicesFeatures', featTitle?: string | null, featText?: string | null, image?: { __typename: 'PageBlocksServicesFeaturesImage', img?: string | null, alt?: string | null } | null } | null> | null } | null> | null };
 
-export type GlobalPartsFragment = { __typename?: 'Global', header?: { __typename: 'GlobalHeader', color?: string | null, nav?: Array<{ __typename: 'GlobalHeaderNav', href?: string | null, label?: string | null } | null> | null } | null, footer?: { __typename: 'GlobalFooter', color?: string | null, social?: { __typename: 'GlobalFooterSocial', facebook?: string | null, twitter?: string | null, instagram?: string | null, github?: string | null } | null } | null, theme?: { __typename: 'GlobalTheme', color?: string | null, font?: string | null, icon?: string | null, darkMode?: string | null } | null };
+export type GlobalPartsFragment = { __typename?: 'Global', header?: { __typename: 'GlobalHeader', background?: string | null, nav?: Array<{ __typename: 'GlobalHeaderNav', href?: string | null, label?: string | null } | null> | null, actions?: Array<{ __typename: 'GlobalHeaderActions', label?: string | null, type?: string | null, link?: string | null } | null> | null } | null, footer?: { __typename: 'GlobalFooter', background?: string | null, blocks?: Array<{ __typename: 'GlobalFooterBlocksLogoBlock', Image?: string | null } | { __typename: 'GlobalFooterBlocksNormalblock', title?: string | null, links?: Array<{ __typename: 'GlobalFooterBlocksNormalblockLinksNormalLink', label?: string | null, href?: string | null } | { __typename: 'GlobalFooterBlocksNormalblockLinksIconLink', icon?: string | null, label?: string | null, href?: string | null } | null> | null } | null> | null } | null, theme?: { __typename: 'GlobalTheme', modes?: string | null, colors?: { __typename: 'GlobalThemeColors', primary?: string | null, secondary?: string | null, accent?: string | null, muted?: string | null, dark?: string | null, link?: string | null, text?: string | null, textSecondary?: string | null, heading?: string | null, headingSecondary?: string | null, background?: string | null, backgroundSecondary?: string | null } | null } | null };
 
 export type PostsPartsFragment = { __typename?: 'Posts', title?: string | null, body?: any | null };
 
@@ -496,7 +581,7 @@ export type GlobalQueryVariables = Exact<{
 }>;
 
 
-export type GlobalQuery = { __typename?: 'Query', global: { __typename?: 'Global', id: string, _sys: { __typename?: 'SystemInfo', filename: string, basename: string, breadcrumbs: Array<string>, path: string, relativePath: string, extension: string }, header?: { __typename: 'GlobalHeader', color?: string | null, nav?: Array<{ __typename: 'GlobalHeaderNav', href?: string | null, label?: string | null } | null> | null } | null, footer?: { __typename: 'GlobalFooter', color?: string | null, social?: { __typename: 'GlobalFooterSocial', facebook?: string | null, twitter?: string | null, instagram?: string | null, github?: string | null } | null } | null, theme?: { __typename: 'GlobalTheme', color?: string | null, font?: string | null, icon?: string | null, darkMode?: string | null } | null } };
+export type GlobalQuery = { __typename?: 'Query', global: { __typename?: 'Global', id: string, _sys: { __typename?: 'SystemInfo', filename: string, basename: string, breadcrumbs: Array<string>, path: string, relativePath: string, extension: string }, header?: { __typename: 'GlobalHeader', background?: string | null, nav?: Array<{ __typename: 'GlobalHeaderNav', href?: string | null, label?: string | null } | null> | null, actions?: Array<{ __typename: 'GlobalHeaderActions', label?: string | null, type?: string | null, link?: string | null } | null> | null } | null, footer?: { __typename: 'GlobalFooter', background?: string | null, blocks?: Array<{ __typename: 'GlobalFooterBlocksLogoBlock', Image?: string | null } | { __typename: 'GlobalFooterBlocksNormalblock', title?: string | null, links?: Array<{ __typename: 'GlobalFooterBlocksNormalblockLinksNormalLink', label?: string | null, href?: string | null } | { __typename: 'GlobalFooterBlocksNormalblockLinksIconLink', icon?: string | null, label?: string | null, href?: string | null } | null> | null } | null> | null } | null, theme?: { __typename: 'GlobalTheme', modes?: string | null, colors?: { __typename: 'GlobalThemeColors', primary?: string | null, secondary?: string | null, accent?: string | null, muted?: string | null, dark?: string | null, link?: string | null, text?: string | null, textSecondary?: string | null, heading?: string | null, headingSecondary?: string | null, background?: string | null, backgroundSecondary?: string | null } | null } | null } };
 
 export type GlobalConnectionQueryVariables = Exact<{
   before?: InputMaybe<Scalars['String']>;
@@ -507,7 +592,7 @@ export type GlobalConnectionQueryVariables = Exact<{
 }>;
 
 
-export type GlobalConnectionQuery = { __typename?: 'Query', globalConnection: { __typename?: 'GlobalConnection', totalCount: number, edges?: Array<{ __typename?: 'GlobalConnectionEdges', node?: { __typename?: 'Global', id: string, _sys: { __typename?: 'SystemInfo', filename: string, basename: string, breadcrumbs: Array<string>, path: string, relativePath: string, extension: string }, header?: { __typename: 'GlobalHeader', color?: string | null, nav?: Array<{ __typename: 'GlobalHeaderNav', href?: string | null, label?: string | null } | null> | null } | null, footer?: { __typename: 'GlobalFooter', color?: string | null, social?: { __typename: 'GlobalFooterSocial', facebook?: string | null, twitter?: string | null, instagram?: string | null, github?: string | null } | null } | null, theme?: { __typename: 'GlobalTheme', color?: string | null, font?: string | null, icon?: string | null, darkMode?: string | null } | null } | null } | null> | null } };
+export type GlobalConnectionQuery = { __typename?: 'Query', globalConnection: { __typename?: 'GlobalConnection', totalCount: number, edges?: Array<{ __typename?: 'GlobalConnectionEdges', node?: { __typename?: 'Global', id: string, _sys: { __typename?: 'SystemInfo', filename: string, basename: string, breadcrumbs: Array<string>, path: string, relativePath: string, extension: string }, header?: { __typename: 'GlobalHeader', background?: string | null, nav?: Array<{ __typename: 'GlobalHeaderNav', href?: string | null, label?: string | null } | null> | null, actions?: Array<{ __typename: 'GlobalHeaderActions', label?: string | null, type?: string | null, link?: string | null } | null> | null } | null, footer?: { __typename: 'GlobalFooter', background?: string | null, blocks?: Array<{ __typename: 'GlobalFooterBlocksLogoBlock', Image?: string | null } | { __typename: 'GlobalFooterBlocksNormalblock', title?: string | null, links?: Array<{ __typename: 'GlobalFooterBlocksNormalblockLinksNormalLink', label?: string | null, href?: string | null } | { __typename: 'GlobalFooterBlocksNormalblockLinksIconLink', icon?: string | null, label?: string | null, href?: string | null } | null> | null } | null> | null } | null, theme?: { __typename: 'GlobalTheme', modes?: string | null, colors?: { __typename: 'GlobalThemeColors', primary?: string | null, secondary?: string | null, accent?: string | null, muted?: string | null, dark?: string | null, link?: string | null, text?: string | null, textSecondary?: string | null, heading?: string | null, headingSecondary?: string | null, background?: string | null, backgroundSecondary?: string | null } | null } | null } | null } | null> | null } };
 
 export type PostsQueryVariables = Exact<{
   relativePath: Scalars['String'];
@@ -558,30 +643,62 @@ export const GlobalPartsFragmentDoc = gql`
     fragment GlobalParts on Global {
   header {
     __typename
-    color
+    background
     nav {
       __typename
       href
       label
     }
+    actions {
+      __typename
+      label
+      type
+      link
+    }
   }
   footer {
     __typename
-    color
-    social {
+    background
+    blocks {
       __typename
-      facebook
-      twitter
-      instagram
-      github
+      ... on GlobalFooterBlocksLogoBlock {
+        Image
+      }
+      ... on GlobalFooterBlocksNormalblock {
+        title
+        links {
+          __typename
+          ... on GlobalFooterBlocksNormalblockLinksNormalLink {
+            label
+            href
+          }
+          ... on GlobalFooterBlocksNormalblockLinksIconLink {
+            icon
+            label
+            href
+          }
+        }
+      }
     }
   }
   theme {
     __typename
-    color
-    font
-    icon
-    darkMode
+    colors {
+      __typename
+      primary
+      secondary
+      accent
+      muted
+      dark
+      link
+      text
+      textSecondary
+      heading
+      headingSecondary
+      background
+      backgroundSecondary
+    }
+    modes
   }
 }
     `;

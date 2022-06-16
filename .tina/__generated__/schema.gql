@@ -130,28 +130,65 @@ type GlobalHeaderNav {
   label: String
 }
 
-type GlobalHeader {
-  color: String
-  nav: [GlobalHeaderNav]
+type GlobalHeaderActions {
+  label: String
+  type: String
+  link: String
 }
 
-type GlobalFooterSocial {
-  facebook: String
-  twitter: String
-  instagram: String
-  github: String
+type GlobalHeader {
+  background: String
+  nav: [GlobalHeaderNav]
+  actions: [GlobalHeaderActions]
 }
+
+type GlobalFooterBlocksLogoBlock {
+  Image: String
+}
+
+type GlobalFooterBlocksNormalblockLinksNormalLink {
+  label: String
+  href: String
+}
+
+type GlobalFooterBlocksNormalblockLinksIconLink {
+  icon: String
+  label: String
+  href: String
+}
+
+union GlobalFooterBlocksNormalblockLinks = GlobalFooterBlocksNormalblockLinksNormalLink | GlobalFooterBlocksNormalblockLinksIconLink
+
+type GlobalFooterBlocksNormalblock {
+  title: String
+  links: [GlobalFooterBlocksNormalblockLinks]
+}
+
+union GlobalFooterBlocks = GlobalFooterBlocksLogoBlock | GlobalFooterBlocksNormalblock
 
 type GlobalFooter {
-  color: String
-  social: GlobalFooterSocial
+  background: String
+  blocks: [GlobalFooterBlocks]
+}
+
+type GlobalThemeColors {
+  primary: String
+  secondary: String
+  accent: String
+  muted: String
+  dark: String
+  link: String
+  text: String
+  textSecondary: String
+  heading: String
+  headingSecondary: String
+  background: String
+  backgroundSecondary: String
 }
 
 type GlobalTheme {
-  color: String
-  font: String
-  icon: String
-  darkMode: String
+  colors: GlobalThemeColors
+  modes: String
 }
 
 type Global implements Node & Document {
@@ -250,28 +287,71 @@ input GlobalHeaderNavMutation {
   label: String
 }
 
-input GlobalHeaderMutation {
-  color: String
-  nav: [GlobalHeaderNavMutation]
+input GlobalHeaderActionsMutation {
+  label: String
+  type: String
+  link: String
 }
 
-input GlobalFooterSocialMutation {
-  facebook: String
-  twitter: String
-  instagram: String
-  github: String
+input GlobalHeaderMutation {
+  background: String
+  nav: [GlobalHeaderNavMutation]
+  actions: [GlobalHeaderActionsMutation]
+}
+
+input GlobalFooterBlocksLogoBlockMutation {
+  Image: String
+}
+
+input GlobalFooterBlocksNormalblockLinksNormalLinkMutation {
+  label: String
+  href: String
+}
+
+input GlobalFooterBlocksNormalblockLinksIconLinkMutation {
+  icon: String
+  label: String
+  href: String
+}
+
+input GlobalFooterBlocksNormalblockLinksMutation {
+  normalLink: GlobalFooterBlocksNormalblockLinksNormalLinkMutation
+  iconLink: GlobalFooterBlocksNormalblockLinksIconLinkMutation
+}
+
+input GlobalFooterBlocksNormalblockMutation {
+  title: String
+  links: [GlobalFooterBlocksNormalblockLinksMutation]
+}
+
+input GlobalFooterBlocksMutation {
+  logoBlock: GlobalFooterBlocksLogoBlockMutation
+  normalblock: GlobalFooterBlocksNormalblockMutation
 }
 
 input GlobalFooterMutation {
-  color: String
-  social: GlobalFooterSocialMutation
+  background: String
+  blocks: [GlobalFooterBlocksMutation]
+}
+
+input GlobalThemeColorsMutation {
+  primary: String
+  secondary: String
+  accent: String
+  muted: String
+  dark: String
+  link: String
+  text: String
+  textSecondary: String
+  heading: String
+  headingSecondary: String
+  background: String
+  backgroundSecondary: String
 }
 
 input GlobalThemeMutation {
-  color: String
-  font: String
-  icon: String
-  darkMode: String
+  colors: GlobalThemeColorsMutation
+  modes: String
 }
 
 input GlobalMutation {
