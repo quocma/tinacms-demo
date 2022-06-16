@@ -1,6 +1,9 @@
 
 import { defineSchema, defineConfig } from "tinacms";
 
+import { bannerBlockSchema } from '../src/sections/banner';
+import { servicesBlockSchema } from "sections/services";
+
 const schema = defineSchema({
   collections: [
     {
@@ -17,35 +20,204 @@ const schema = defineSchema({
             visualSelector: true,
           },
           templates: [
-            {
-              name: 'banner',
-              label: 'Banner',
-              fields: [
-                {
-                  name: "headline",
-                  label: "Headline",
-                  type: "string",
-                },
-                {
-                  name: "text",
-                  label: "Text",
-                  type: "rich-text",
-                },
-                {
-                  name: "image",
-                  label: "Image",
-                  type: "image",
-                },
-                {
-                  name: "cta",
-                  label: "Call to Action",
-                  type: "string",
-                },
-              ]
-            }
+            bannerBlockSchema,
+            servicesBlockSchema
           ]
         }
       ]
+    },
+    {
+      label: "Global",
+      name: "global",
+      path: "content/global",
+      format: "json",
+      fields: [
+        {
+          type: "object",
+          label: "Header",
+          name: "header",
+          fields: [
+            {
+              type: "string",
+              label: "Color",
+              name: "color",
+              options: [
+                { label: "Default", value: "default" },
+                { label: "Primary", value: "primary" },
+              ],
+            },
+            {
+              type: "object",
+              label: "Nav Links",
+              name: "nav",
+              list: true,
+              ui: {
+                itemProps: (item) => {
+                  return { label: item?.label };
+                },
+                defaultItem: {
+                  href: "home",
+                  label: "Home",
+                },
+              },
+              fields: [
+                {
+                  type: "string",
+                  label: "Link",
+                  name: "href",
+                },
+                {
+                  type: "string",
+                  label: "Label",
+                  name: "label",
+                },
+              ],
+            },
+          ],
+        },
+        {
+          type: "object",
+          label: "Footer",
+          name: "footer",
+          fields: [
+            {
+              type: "string",
+              label: "Color",
+              name: "color",
+              options: [
+                { label: "Default", value: "default" },
+                { label: "Primary", value: "primary" },
+              ],
+            },
+            {
+              type: "object",
+              label: "Social Links",
+              name: "social",
+              fields: [
+                {
+                  type: "string",
+                  label: "Facebook",
+                  name: "facebook",
+                },
+                {
+                  type: "string",
+                  label: "Twitter",
+                  name: "twitter",
+                },
+                {
+                  type: "string",
+                  label: "Instagram",
+                  name: "instagram",
+                },
+                {
+                  type: "string",
+                  label: "Github",
+                  name: "github",
+                },
+              ],
+            },
+          ],
+        },
+        {
+          type: "object",
+          label: "Theme",
+          name: "theme",
+          fields: [
+            {
+              type: "string",
+              label: "Primary Color",
+              name: "color",
+              options: [
+                {
+                  label: "Blue",
+                  value: "blue",
+                },
+                {
+                  label: "Teal",
+                  value: "teal",
+                },
+                {
+                  label: "Green",
+                  value: "green",
+                },
+                {
+                  label: "Red",
+                  value: "red",
+                },
+                {
+                  label: "Pink",
+                  value: "pink",
+                },
+                {
+                  label: "Purple",
+                  value: "purple",
+                },
+                {
+                  label: "Orange",
+                  value: "orange",
+                },
+                {
+                  label: "Yellow",
+                  value: "yellow",
+                },
+              ],
+            },
+            {
+              type: "string",
+              name: "font",
+              label: "Font Family",
+              options: [
+                {
+                  label: "System Sans",
+                  value: "sans",
+                },
+                {
+                  label: "Nunito",
+                  value: "nunito",
+                },
+                {
+                  label: "Lato",
+                  value: "lato",
+                },
+              ],
+            },
+            {
+              type: "string",
+              name: "icon",
+              label: "Icon Set",
+              options: [
+                {
+                  label: "Boxicons",
+                  value: "boxicon",
+                },
+                {
+                  label: "Heroicons",
+                  value: "heroicon",
+                },
+              ],
+            },
+            {
+              type: "string",
+              name: "darkMode",
+              label: "Dark Mode",
+              options: [
+                {
+                  label: "System",
+                  value: "system",
+                },
+                {
+                  label: "Light",
+                  value: "light",
+                },
+                {
+                  label: "Dark",
+                  value: "dark",
+                },
+              ],
+            },
+          ],
+        },
+      ],
     },
     {
       label: "Blog Posts",
@@ -101,14 +273,12 @@ const apiURL =
     ? `http://localhost:4001/graphql`
     : `https://content.tinajs.io/content/${process.env.NEXT_PUBLIC_TINA_CLIENT_ID}/github/${branch}`
 
-console.log(apiURL);
-
 export const tinaConfig = defineConfig({
   apiURL,
   schema,
   mediaStore: async () => {
     const pack = await import('next-tinacms-cloudinary');
-    console.log(pack)
+
     return pack.TinaCloudCloudinaryMediaStore;
   },
   cmsCallback: (cms) => {

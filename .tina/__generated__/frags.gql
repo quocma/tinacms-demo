@@ -4,9 +4,53 @@ fragment PageParts on Page {
     ... on PageBlocksBanner {
       headline
       text
-      image
       cta
+      image
     }
+    ... on PageBlocksServices {
+      title
+      description
+      features {
+        __typename
+        image {
+          __typename
+          img
+          alt
+        }
+        featTitle
+        featText
+      }
+    }
+  }
+}
+
+fragment GlobalParts on Global {
+  header {
+    __typename
+    color
+    nav {
+      __typename
+      href
+      label
+    }
+  }
+  footer {
+    __typename
+    color
+    social {
+      __typename
+      facebook
+      twitter
+      instagram
+      github
+    }
+  }
+  theme {
+    __typename
+    color
+    font
+    icon
+    darkMode
   }
 }
 

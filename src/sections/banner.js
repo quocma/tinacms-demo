@@ -11,54 +11,43 @@ import {
   Button,
 } from 'theme-ui';
 import Input from 'components/input';
-import banner from 'assets/images/banner.png';
-import paypal from 'assets/images/paypal.png';
-import google from 'assets/images/google.png';
-import dropbox from 'assets/images/dropbox.png';
+
 import { rgba } from 'polished';
 
-const Banner = () => {
+import bannerDefaultImg from 'assets/blocks/undraw_medicine_b-1-ol.svg'; 
+import bannerPreview from 'assets/previews/bannerPreview.png'
+
+import { TinaMarkdown } from 'tinacms/dist/rich-text'
+
+const Banner = ({data, parentField}) => {
+
+  if(!data) {
+    return null;
+  }
+
   return (
-    <Box as="section" id="home" sx={styles.section}>
+    <Box as="section" sx={styles.section}>
       <Container>
         <Box sx={styles.contentWrapper}>
           <Box sx={styles.content}>
-            <Heading as="h1">
-              Build your audience &amp; grow your business online smarter
-            </Heading>
-            <Text as="p">
-              Get your blood tests delivered at let home collect sample from the
-              victory of the managements that supplies best design system
-              guidelines ever.
-            </Text>
-            <Box sx={styles.subscribe}>
-              <Label htmlFor="email" variant="styles.srOnly">
-                Email
-              </Label>
-              <Input
-                id="email"
-                type="email"
-                placeholder="Enter Email address"
-              />
-              <Button variant="primary">Subscribe</Button>
-            </Box>
-            <Box sx={styles.sponsoredBy}>
-              <Text as="span">Sponsored by:</Text>
-              <Box sx={styles.logos}>
-                <Box as="figure" sx={{ display: 'flex' }}>
-                  <Image src={paypal} alt="paypal" />
-                </Box>
-                <Box as="figure" sx={{ display: 'flex' }}>
-                  <Image src={google} alt="google" />
-                </Box>
-                <Box as="figure" sx={{ display: 'flex' }}>
-                  <Image src={dropbox} alt="dropbox" />
-                </Box>
+            {data.headline && 
+              <Heading as="h1" data-tinafield={`${parentField}.headline`}>
+                {data.headline}
+              </Heading>
+            }
+            {data.text && 
+              <div data-tinafield={`${parentField}.text`}>
+                <TinaMarkdown content={data.text} />
+              </div>
+            } 
+            { data.cta &&
+              <Box sx={styles.subscribe} data-tinafield={`${parentField}.cta`}>
+                <Button variant="primary">{data.cta}</Button>
               </Box>
-            </Box>
+            }
           </Box>
           <Box as="figure" sx={styles.illustration}>
-            <Image src={banner} alt="banner" />
+            <Image src={bannerDefaultImg} alt="banner" />
           </Box>
         </Box>
       </Container>
@@ -141,3 +130,52 @@ const styles = {
     },
   },
 };
+
+export const bannerBlockSchema = {
+  name: 'banner',
+  label: 'Banner',
+  ui: {
+    previewSrc: bannerPreview,
+    defaultItem: {
+      headline: "Your banner headline",
+      // default rich-text content
+      text: {
+        type: "root",
+        children: [
+          {
+            type: "p",
+            children: [
+                {
+                  type: "text",
+                  text: "Your banner description"
+                }
+              ]
+          }
+        ]
+      },
+      cta: 'CTA button'
+    }
+  },
+  fields: [
+    {
+      name: "headline",
+      label: "Headline",
+      type: "string",
+    },
+    {
+      name: "text",
+      label: "Text",
+      type: "rich-text",
+    },
+    {
+      name: "cta",
+      label: "Call to Action",
+      type: "string",
+    },
+    {
+      name: "image",
+      label: "Image",
+      type: "image",
+    },
+  ]
+}

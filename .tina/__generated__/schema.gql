@@ -50,6 +50,8 @@ type Query {
   document(collection: String, relativePath: String): DocumentNode!
   page(relativePath: String): Page!
   pageConnection(before: String, after: String, first: Float, last: Float, sort: String): PageConnection!
+  global(relativePath: String): Global!
+  globalConnection(before: String, after: String, first: Float, last: Float, sort: String): GlobalConnection!
   posts(relativePath: String): Posts!
   postsConnection(before: String, after: String, first: Float, last: Float, sort: String): PostsConnection!
 }
@@ -77,16 +79,33 @@ type Collection {
   documents(before: String, after: String, first: Float, last: Float, sort: String): DocumentConnection!
 }
 
-union DocumentNode = Page | Posts
+union DocumentNode = Page | Global | Posts
 
 type PageBlocksBanner {
   headline: String
   text: JSON
-  image: String
   cta: String
+  image: String
 }
 
-union PageBlocks = PageBlocksBanner
+type PageBlocksServicesFeaturesImage {
+  img: String
+  alt: String
+}
+
+type PageBlocksServicesFeatures {
+  image: PageBlocksServicesFeaturesImage
+  featTitle: String
+  featText: String
+}
+
+type PageBlocksServices {
+  title: String
+  description: JSON
+  features: [PageBlocksServicesFeatures]
+}
+
+union PageBlocks = PageBlocksBanner | PageBlocksServices
 
 type Page implements Node & Document {
   blocks: [PageBlocks]
@@ -104,6 +123,55 @@ type PageConnection implements Connection {
   pageInfo: PageInfo!
   totalCount: Float!
   edges: [PageConnectionEdges]
+}
+
+type GlobalHeaderNav {
+  href: String
+  label: String
+}
+
+type GlobalHeader {
+  color: String
+  nav: [GlobalHeaderNav]
+}
+
+type GlobalFooterSocial {
+  facebook: String
+  twitter: String
+  instagram: String
+  github: String
+}
+
+type GlobalFooter {
+  color: String
+  social: GlobalFooterSocial
+}
+
+type GlobalTheme {
+  color: String
+  font: String
+  icon: String
+  darkMode: String
+}
+
+type Global implements Node & Document {
+  header: GlobalHeader
+  footer: GlobalFooter
+  theme: GlobalTheme
+  id: ID!
+  _sys: SystemInfo!
+  _values: JSON!
+}
+
+type GlobalConnectionEdges {
+  cursor: String!
+  node: Global
+}
+
+type GlobalConnection implements Connection {
+  pageInfo: PageInfo!
+  totalCount: Float!
+  edges: [GlobalConnectionEdges]
 }
 
 type Posts implements Node & Document {
@@ -132,28 +200,84 @@ type Mutation {
   createDocument(collection: String, relativePath: String!, params: DocumentMutation!): DocumentNode!
   updatePage(relativePath: String!, params: PageMutation!): Page!
   createPage(relativePath: String!, params: PageMutation!): Page!
+  updateGlobal(relativePath: String!, params: GlobalMutation!): Global!
+  createGlobal(relativePath: String!, params: GlobalMutation!): Global!
   updatePosts(relativePath: String!, params: PostsMutation!): Posts!
   createPosts(relativePath: String!, params: PostsMutation!): Posts!
 }
 
 input DocumentMutation {
   page: PageMutation
+  global: GlobalMutation
   posts: PostsMutation
 }
 
 input PageBlocksBannerMutation {
   headline: String
   text: JSON
-  image: String
   cta: String
+  image: String
+}
+
+input PageBlocksServicesFeaturesImageMutation {
+  img: String
+  alt: String
+}
+
+input PageBlocksServicesFeaturesMutation {
+  image: PageBlocksServicesFeaturesImageMutation
+  featTitle: String
+  featText: String
+}
+
+input PageBlocksServicesMutation {
+  title: String
+  description: JSON
+  features: [PageBlocksServicesFeaturesMutation]
 }
 
 input PageBlocksMutation {
   banner: PageBlocksBannerMutation
+  services: PageBlocksServicesMutation
 }
 
 input PageMutation {
   blocks: [PageBlocksMutation]
+}
+
+input GlobalHeaderNavMutation {
+  href: String
+  label: String
+}
+
+input GlobalHeaderMutation {
+  color: String
+  nav: [GlobalHeaderNavMutation]
+}
+
+input GlobalFooterSocialMutation {
+  facebook: String
+  twitter: String
+  instagram: String
+  github: String
+}
+
+input GlobalFooterMutation {
+  color: String
+  social: GlobalFooterSocialMutation
+}
+
+input GlobalThemeMutation {
+  color: String
+  font: String
+  icon: String
+  darkMode: String
+}
+
+input GlobalMutation {
+  header: GlobalHeaderMutation
+  footer: GlobalFooterMutation
+  theme: GlobalThemeMutation
 }
 
 input PostsMutation {
