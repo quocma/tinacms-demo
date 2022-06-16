@@ -16,13 +16,8 @@ export default createMediaHandler({
       if (process.env.NEXT_PUBLIC_USE_LOCAL_CLIENT) {
         return true
       }
-      const user = await isAuthorized({
-        ...req,
-        query: {
-          ...req.query,
-          clientID: "authorized"
-        }
-      })
+
+      const user = await isAuthorized(req);
 
       return user && user.verified
     } catch (e) {
