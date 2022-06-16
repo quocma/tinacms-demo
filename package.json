@@ -3,13 +3,16 @@
   "version": "0.0.1",
   "private": true,
   "scripts": {
-    "dev": "next dev -p 3005",
-    "build": "next build",
+    "dev": "tinacms server:start -c \"next dev -p 3005\"",
+    "build": "tinacms server:start -c \"next build\"",
     "serve": "next start",
     "export": "next export",
-    "postbuild": "next-sitemap"
+    "postbuild": "next-sitemap",
+    "start": "tinacms server:start -c \"next start\""
   },
   "dependencies": {
+    "@tinacms/auth": "^0.50.2",
+    "@tinacms/cli": "^0.60.21",
     "dotenv": "^8.2.0",
     "framer-motion": "^3.3.0-beta.22",
     "globby": "^11.0.2",
@@ -17,6 +20,7 @@
     "next": "^10.0.6",
     "next-compose-plugins": "^2.2.1",
     "next-optimized-images": "^2.6.2",
+    "next-tinacms-cloudinary": "^3.5.25",
     "polished": "^4.1.0",
     "rc-drawer": "^4.2.2",
     "react": "^17.0.1",
@@ -26,7 +30,9 @@
     "react-scroll": "^1.8.1",
     "react-slick": "^0.28.0",
     "react-stickynode": "^3.0.4",
-    "theme-ui": "^0.3.5"
+    "styled-components": "^5.3.5",
+    "theme-ui": "^0.3.5",
+    "tinacms": "^0.68.8"
   },
   "devDependencies": {
     "imagemin-mozjpeg": "^9.0.0",

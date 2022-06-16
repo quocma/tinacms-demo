@@ -1,0 +1,53 @@
+{
+  "header": {
+    "background": "#EBB9B9",
+    "nav": [
+      {
+        "href": "/",
+        "label": "Home"
+      },
+      {
+        "href": "/about",
+        "label": "About"
+      },
+      {
+        "href": "#blog",
+        "label": "Blog"
+      }
+    ],
+    "actions": [
+      {
+        "label": "Get A Quote",
+        "type": "button",
+        "link": "/"
+      }
+    ]
+  },
+  "footer": {
+    "background": "#CE1B1B",
+    "blocks": [
+      {
+        "_template": "logoBlock"
+      },
+      {
+        "_template": "normalblock"
+      }
+    ]
+  },
+  "theme": {
+    "colors": {
+      "primary": "#0D4A90",
+      "secondary": "#EF9E48",
+      "accent": "#609",
+      "muted": "#7B8188",
+      "dark": "#10132D",
+      "link": "#4F96FF",
+      "text": "#343D48",
+      "textSecondary": "#02073E",
+      "heading": "#0F2137",
+      "headingSecondary": "#343D48",
+      "background": "#FFFFFF",
+      "backgroundSecondary": "#F9FBFD"
+    }
+  }
+}

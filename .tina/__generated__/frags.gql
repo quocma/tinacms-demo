@@ -1,0 +1,92 @@
+fragment PageParts on Page {
+  blocks {
+    __typename
+    ... on PageBlocksBanner {
+      headline
+      text
+      cta
+      image
+    }
+    ... on PageBlocksServices {
+      title
+      description
+      features {
+        __typename
+        image {
+          __typename
+          img
+          alt
+        }
+        featTitle
+        featText
+      }
+    }
+  }
+}
+
+fragment GlobalParts on Global {
+  header {
+    __typename
+    background
+    nav {
+      __typename
+      href
+      label
+    }
+    actions {
+      __typename
+      label
+      type
+      link
+    }
+  }
+  footer {
+    __typename
+    background
+    blocks {
+      __typename
+      ... on GlobalFooterBlocksLogoBlock {
+        Image
+      }
+      ... on GlobalFooterBlocksNormalblock {
+        title
+        links {
+          __typename
+          ... on GlobalFooterBlocksNormalblockLinksNormalLink {
+            label
+            href
+          }
+          ... on GlobalFooterBlocksNormalblockLinksIconLink {
+            icon
+            label
+            href
+          }
+        }
+      }
+    }
+  }
+  theme {
+    __typename
+    colors {
+      __typename
+      primary
+      secondary
+      accent
+      muted
+      dark
+      link
+      text
+      textSecondary
+      heading
+      headingSecondary
+      background
+      backgroundSecondary
+    }
+    modes
+  }
+}
+
+fragment PostsParts on Posts {
+  title
+  body
+}

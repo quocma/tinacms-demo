@@ -29,9 +29,9 @@ const data = [
   },
 ];
 
-const Services = () => {
+const Services = (props) => {
   return (
-    <Box as="section" id="services" variant="section.features">
+    <Box as="section" variant="section.features">
       <Container>
         <SectionHeading
           sx={styles.heading}
@@ -99,3 +99,86 @@ const styles = {
     },
   },
 };
+
+export const servicesBlockSchema = {
+  name: 'services',
+  label: "Services",
+  ui: {
+    defaultItem: {
+      title: "Services title",
+      description: {
+        type: "root",
+        children: [
+          {
+            type: "p",
+            children: [
+                {
+                  type: "text",
+                  text: "Your banner description"
+                }
+              ]
+          }
+        ]
+      },
+    }
+  },
+  fields: [
+    {
+      name: "title",
+      label: "Title",
+      type: "string"
+    },
+    {
+      name: "description",
+      label: "Description",
+      type: "rich-text"
+    },
+    {
+      name: "features",
+      label: "Features",
+      type: "object",
+      list: true,
+      ui: {
+        defaultItem: {
+          featTitle: "Feature title",
+          featText: "Feature description"
+        }
+      },
+      fields: [
+        {
+          name: 'image',
+          type: 'object',
+          label: "Feature Image",
+          ui: {
+            defaultItem: {
+              img: team,
+              alt: 'feature image'
+            }
+          },
+          fields: [
+            {
+              name: "img",
+              label: 'Img',
+              type: "image"
+            },
+            {
+              name: "alt",
+              label: 'Alternative text',
+              type: "string"
+            }
+          ]
+        },
+        {
+          name: "featTitle",
+          label: "Feature",
+          type: "string"
+        },
+        {
+          name: "featText",
+          label: "Description",
+          type: "string"
+        },
+      ]
+    },
+  ]
+}
