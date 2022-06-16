@@ -372,10 +372,10 @@ export default schema
 
 // Your tina config
 // ==============
-const branch = 'main'
+const branch = process.env.NEXT_PUBLIC_SRC_BRANCH
 // When working locally, hit our local filesystem.
 // On a Vercel deployment, hit the Tina Cloud API
-const apiURL =
+const apiURL = 
   process.env.NODE_ENV == 'development'
     ? `http://localhost:4001/graphql`
     : `https://content.tinajs.io/content/${process.env.NEXT_PUBLIC_TINA_CLIENT_ID}/github/${branch}`
